@@ -1422,6 +1422,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@geist-ui/react@npm:^2.1.0-canary.2":
+  version: 2.1.0-canary.2
+  resolution: "@geist-ui/react@npm:2.1.0-canary.2"
+  dependencies:
+    styled-jsx: ^3.2.5
+  checksum: 73bca773d21e00cbc3d89cea921b98cce2de4dd8db6e32f6e626ac1f98c994569d20074dafe939a7ee589247b7a4725d282cc8f3ae0d8eee0ab624f1b75cbd7a
+  languageName: node
+  linkType: hard
+
 "@hapi/accept@npm:5.0.1":
   version: 5.0.1
   resolution: "@hapi/accept@npm:5.0.1"
@@ -6849,6 +6858,7 @@ fsevents@~2.1.2:
   version: 0.0.0-use.local
   resolution: "school-management@workspace:."
   dependencies:
+    "@geist-ui/react": ^2.1.0-canary.2
     "@typegoose/typegoose": ^7.4.1
     "@types/mongoose": ^5.7.37
     "@types/next-auth": ^3.1.14
@@ -7351,7 +7361,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"styled-jsx@npm:3.3.1, styled-jsx@npm:^3.3.1":
+"styled-jsx@npm:3.3.1, styled-jsx@npm:^3.2.5, styled-jsx@npm:^3.3.1":
   version: 3.3.1
   resolution: "styled-jsx@npm:3.3.1"
   dependencies:

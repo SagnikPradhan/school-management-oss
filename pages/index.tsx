@@ -1,23 +1,40 @@
-import { signIn, signOut, useSession } from "next-auth/client";
-import { Container } from "../components/container";
+import { useSession } from "next-auth/client";
 
-export default function Home() {
-  const [session] = useSession();
+// Components
+import Link from "next/link";
+import { Page, Button, Grid, Text, Card } from "@geist-ui/react";
+
+import SignIn from "../components/sign-in";
+
+const HomePage = () => {
+  const [session, loading] = useSession();
 
   return (
-    <Container>
-      {!session && (
-        <>
-          Not signed in <br />
-          <button onClick={() => signIn()}>Sign in</button>
-        </>
-      )}
-      {session && (
-        <>
-          Signed in as {session.user.email} <br />
-          <button onClick={() => signOut()}>Sign out</button>
-        </>
-      )}
-    </Container>
+    <Page>
+      <Page.Header>
+        <Grid.Container
+          style={{ padding: "1em 0" }}
+          justify={session ? "space-between" : "center"}
+        >
+          <Text h3>School Management OSS</Text>
+
+          {session && (
+            <Link href="/api/auth/signout">
+              <Button loading={loading} type="error">
+                Sign Out
+              </Button>
+            </Link>
+          )}
+        </Grid.Container>
+      </Page.Header>
+
+      <Page.Content>
+        <Grid.Container alignItems="center" justify="center" direction="column">
+          {session ? <Card></Card> : <SignIn loading={loading}></SignIn>}
+        </Grid.Container>
+      </Page.Content>
+    </Page>
   );
-}
+};
+
+export default HomePage;

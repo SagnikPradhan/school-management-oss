@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@geist-ui/react": "^2.1.0-canary.2",
     "@typegoose/typegoose": "^7.4.1",
     "mongoose": "^5.10.13",
     "next": "10.0.1",
