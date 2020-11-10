@@ -3,8 +3,12 @@ import mongoose from "mongoose";
 let isConnected = false;
 
 export default async function init() {
-  if (isConnected) {
-    const db = await mongoose.connect(process.env.MONGODB_URI as string, {
+  if (!isConnected) {
+    const uri = process.env.MONGODB_URI;
+
+    if (typeof uri !== "string") throw new Error("Invalid DB URI");
+
+    const db = await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
