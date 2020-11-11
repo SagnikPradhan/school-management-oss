@@ -9,13 +9,12 @@ import {
   Text,
 } from "@geist-ui/react";
 import Nope from "nope-validator";
-import { ShapeErrors } from "nope-validator/lib/umd/types";
 import { signIn } from "next-auth/client";
 
 export const SignInCard = () => {
   const [email, setEmail] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
-  const [errors, setErrors] = useState<ShapeErrors | undefined>();
+  const [errors, setErrors] = useState<Record<string, string> | undefined>();
   const [loading, setLoading] = useState(false);
 
   const inputSchema = Nope.object().shape({
@@ -27,7 +26,7 @@ export const SignInCard = () => {
 
   const resetErrors = () => {
     const errors = inputSchema.validate({ email, password }) as
-      | ShapeErrors
+      | Record<string, string>
       | undefined;
     setErrors(errors);
   };
