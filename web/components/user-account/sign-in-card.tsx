@@ -1,44 +1,22 @@
-import { useState } from "react";
-import {
-  Grid,
-  Card,
-  Image,
-  Button,
-  Spacer,
-  Input,
-  Text,
-} from "@geist-ui/react";
-import Nope from "nope-validator";
+import { Grid, Card, Image, Button, Input } from "@geist-ui/react";
 import { signIn } from "next-auth/client";
 
-export const SignInCard = () => {
-  const [email, setEmail] = useState<string | undefined>();
-  const [password, setPassword] = useState<string | undefined>();
-  const [errors, setErrors] = useState<Record<string, string> | undefined>();
-  const [loading, setLoading] = useState(false);
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-  const inputSchema = Nope.object().shape({
-    email: Nope.string()
-      .email("Please provide a valid email.")
-      .required("Email is required."),
-    password: Nope.string().required("Password is required."),
+export const SignInCard = () => {
+  const schema = z.object({
+    email: z.string().email(),
+    password: z.string().nonempty(),
   });
 
-  const resetErrors = () => {
-    const errors = inputSchema.validate({ email, password }) as
-      | Record<string, string>
-      | undefined;
-    setErrors(errors);
-  };
-
-  const submit = () => {
-    resetErrors();
-    if (typeof errors === "object") return;
-    else {
-      setLoading(true);
-      signIn("credentials", { email, password });
-    }
-  };
+  const { register, handleSubmit, errors } = useForm<{
+    email: string;
+    password: string;
+  }>({
+    resolver: zodResolver(schema),
+  });
 
   return (
     <Grid.Container direction="row" alignItems="center" justify="space-around">
@@ -53,8 +31,9 @@ export const SignInCard = () => {
               <Input
                 width="100%"
                 type="email"
-                status={errors?.email ? "error" : "success"}
-                onChange={({ target }) => setEmail(target.value)}
+                name="email"
+                ref={register}
+                status={errors.email ? "error" : "default"}
               >
                 Email
               </Input>
@@ -63,25 +42,20 @@ export const SignInCard = () => {
             <Grid>
               <Input.Password
                 width="100%"
-                status={errors?.password ? "error" : "success"}
-                onChange={({ target }) => setPassword(target.value)}
+                name="password"
+                ref={register}
+                status={errors.password ? "error" : "default"}
               >
                 Password
               </Input.Password>
             </Grid>
 
             <Grid>
-              {errors ? (
-                Object.values(errors).map((err) => (
-                  <Text type="secondary">{err}</Text>
-                ))
-              ) : (
-                <Spacer x={0.5} />
-              )}
-            </Grid>
-
-            <Grid>
-              <Button ghost type="success" loading={loading} onClick={submit}>
+              <Button
+                ghost
+                type="success"
+                onClick={handleSubmit((data) => signIn("credentials", data))}
+              >
                 Sign in
               </Button>
             </Grid>

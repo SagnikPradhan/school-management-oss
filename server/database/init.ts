@@ -12,6 +12,7 @@ export default async function init() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
+      useCreateIndex: true,
     });
 
     const state = db.connection.readyState;
