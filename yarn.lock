@@ -1467,6 +1467,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hookform/resolvers@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@hookform/resolvers@npm:1.0.1"
+  peerDependencies:
+    react-hook-form: ">=6.6.0"
+  checksum: da86442caa19d5e3ff0642671a11ba3555e34b5373d7f1ef575d186d12bfbf2f7bf292ad2f499801e0e6e59cf7da107b43c4f950f1e48ee20def2c8267328579
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:10.0.1":
   version: 10.0.1
   resolution: "@next/env@npm:10.0.1"
@@ -5779,13 +5788,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nope-validator@npm:^0.11.3":
-  version: 0.11.3
-  resolution: "nope-validator@npm:0.11.3"
-  checksum: 167a9473d872bf62a977db7b6b423941062e8cea3443a7188737d22b447992f307fac6357a5b4d72dc1339e28e2b5803c920757ff2a66ed53d80a13733627456
-  languageName: node
-  linkType: hard
-
 "nopt@npm:^4.0.1":
   version: 4.0.3
   resolution: "nopt@npm:4.0.3"
@@ -6558,6 +6560,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^6.11.0":
+  version: 6.11.0
+  resolution: "react-hook-form@npm:6.11.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17
+  checksum: 300c2bdd3eb5969d68206ceb6cf795fa5581a525f5bf3c5fd66290a94dea5cdd7c05fea783fd2dde3e897efefdf5ab884f492b402ce304a10e66fa8bcbe283ff
+  languageName: node
+  linkType: hard
+
 "react-is@npm:16.13.1, react-is@npm:^16.8.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -7022,6 +7033,7 @@ fsevents@~2.1.2:
   dependencies:
     "@geist-ui/react": ^2.1.0-canary.2
     "@geist-ui/react-icons": ^1.0.1
+    "@hookform/resolvers": ^1.0.1
     "@types/bcrypt": ^3.0.0
     "@types/mongoose": ^5.7.37
     "@types/next-auth": ^3.1.14
@@ -7031,11 +7043,12 @@ fsevents@~2.1.2:
     mongoose: ^5.10.13
     next: 10.0.1
     next-auth: ^3.1.0
-    nope-validator: ^0.11.3
     react: 17.0.1
     react-dom: 17.0.1
+    react-hook-form: ^6.11.0
     styled-jsx: ^3.3.1
     typescript: ^4.0.5
+    zod: beta
   languageName: unknown
   linkType: soft
 
@@ -8404,5 +8417,12 @@ typescript@^4.0.5:
     y18n: ^5.0.2
     yargs-parser: ^20.2.2
   checksum: 19e94e62eb653f8310aa4ed6eab797b1756fea90cdacb38dec45afdd21b8607bf38723ee0fae0b967ca3886ad58b8430eb48b716958231f2f1b950c1c7f11034
+  languageName: node
+  linkType: hard
+
+"zod@npm:beta":
+  version: 2.0.0-beta.21
+  resolution: "zod@npm:2.0.0-beta.21"
+  checksum: ebf05d14874db7b54d2d961a3b2fa1e8266d296e8fe8768c61b5db6035f39aee777c3805c4344ef2b40e6f486c28f4724d0f2c3904af6b410a1b4299f34b2baa
   languageName: node
   linkType: hard
