@@ -14,3 +14,10 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 };
 
 export default App;
+
+/**
+ * Notes
+ *
+ * 1. Error - Infinite loading with cannot find module `aws-sdk`
+ *    Happened cause I was importing an enum inside a component
+ */

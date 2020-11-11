@@ -1,7 +1,9 @@
 import { Page, Grid, Text } from "@geist-ui/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getSession } from "next-auth/client";
-import UserCard from "web/components/user-account-card";
+
+import UserAccount from "web/components/user-account";
+
 import { UserModel, PublicUser } from "server/database/models/user";
 import initDatabase from "server/database/init";
 
@@ -12,18 +14,22 @@ const HomePage = ({
     <Page>
       <Page.Header>
         <Grid.Container style={{ padding: "1em 0" }} justify="center">
-          <Text h3>School Management OSS</Text>
+          <Text type="success" h3>
+            School Management OSS
+          </Text>
         </Grid.Container>
       </Page.Header>
 
       <Page.Content>
         <Grid.Container justify="center" direction="column">
-          <UserCard user={user}></UserCard>
+          <UserAccount user={user}></UserAccount>
         </Grid.Container>
       </Page.Content>
     </Page>
   );
 };
+
+export default HomePage;
 
 export const getServerSideProps: GetServerSideProps<{
   user?: PublicUser;
@@ -44,5 +50,3 @@ export const getServerSideProps: GetServerSideProps<{
 
   return { props: {} };
 };
-
-export default HomePage;

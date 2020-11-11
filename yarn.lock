@@ -1422,6 +1422,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@geist-ui/react-icons@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@geist-ui/react-icons@npm:1.0.1"
+  peerDependencies:
+    "@geist-ui/react": ">=1.0.0"
+    react: ">=16.13.0"
+  checksum: 444f34b4c618a8d006c1c6116ba680352379a8023c268eedf762f12539c594c0d83566dc65f0549ad902e700840c73080d1d382ba0f8b0a966abefa67afa2005
+  languageName: node
+  linkType: hard
+
 "@geist-ui/react@npm:^2.1.0-canary.2":
   version: 2.1.0-canary.2
   resolution: "@geist-ui/react@npm:2.1.0-canary.2"
@@ -7011,6 +7021,7 @@ fsevents@~2.1.2:
   resolution: "school-management@workspace:."
   dependencies:
     "@geist-ui/react": ^2.1.0-canary.2
+    "@geist-ui/react-icons": ^1.0.1
     "@types/bcrypt": ^3.0.0
     "@types/mongoose": ^5.7.37
     "@types/next-auth": ^3.1.14

@@ -23,6 +23,9 @@ const options: InitOptions = {
       },
     }),
   ],
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
 };
 
 const NextAuthAPI = (req: NextApiRequest, res: NextApiResponse) =>
