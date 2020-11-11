@@ -8,7 +8,7 @@ import {
   Input,
   Text,
 } from "@geist-ui/react";
-import { Nope } from "nope-validator";
+import Nope from "nope-validator";
 import { ShapeErrors } from "nope-validator/lib/umd/types";
 import { signIn } from "next-auth/client";
 
