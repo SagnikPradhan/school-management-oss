@@ -1,6 +1,6 @@
 {
-  "files.exclude": {
-    ".yarn/cache/**": true,
-    "yarn.lock": true
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
