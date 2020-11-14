@@ -31,7 +31,7 @@ export const SignIn: React.FC = () => {
   return (
     <div className="sign-in-card">
       <div className="picture">
-        <Image width="500" height="388" src="/professor.svg" priority />
+        <Image alt="Professor teaching using whiteboard" width="500" height="388" src="/professor.svg" priority />
       </div>
 
       <Form form={ form } submitText="Sign in" onSubmit={ onSubmit } />
