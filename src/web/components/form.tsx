@@ -21,11 +21,12 @@ export const Form = <F extends string>({
   const { register, state, error } = useForm()
   const fields: JSX.Element[] = []
 
+  let index = 0
   for ( const name in form ) {
     const { schema, type } = form[ name ]
 
     const field = (
-      <div className="field">
+      <div key={index++} className="field">
         <label htmlFor={name}>{name}</label>
         <input
           id={name}

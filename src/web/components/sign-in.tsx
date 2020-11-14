@@ -31,7 +31,7 @@ export const SignIn: React.FC = () => {
   return (
     <div className="sign-in-card">
       <div className="picture">
-        <Image src="/welcome_cats.svg" width="400" height="auto" />
+        <Image width="500" height="388" src="/professor.svg" priority />
       </div>
 
       <Form form={ form } submitText="Sign in" onSubmit={ onSubmit } />
@@ -41,24 +41,13 @@ export const SignIn: React.FC = () => {
           display: flex;
           flex-direction: row;
           align-items: center;
+          gap: 2em;
         }
 
         @media only screen and (max-width: 768px) {
           .sign-in-card {
             flex-direction: column;
           }
-        }
-
-        .sign-in-form {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;;
-          gap: 1em;
-
-          font-size: 0.85rem;
-
-          padding: 1.5rem;
-          box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
         }
       `}</style>
     </div>
