@@ -1,13 +1,25 @@
 import * as z from "zod"
-
-import Image from "next/image"
 import React from "react"
+import Image from "next/image"
+import { signIn } from "next-auth/client"
+
 import { useForm } from "../hooks/form"
 
 export const SignIn: React.FC = () => {
   const { register, state, error } = useForm()
   const emailSchema = z.string().email( "Email is invalid" )
   const passwordSchema = z.string().nonempty( "Password is empty" )
+
+  const onSubmit = ( event: React.FormEvent<HTMLFormElement> ) => {
+    event.preventDefault()
+    signIn( "credentials", { email: state.email?.value, password: state.password?.value })
+      .catch(
+        ( error ) => {
+          console.error( error )
+          alert( "Sorry, there was an internal error." )
+        }
+      )
+  }
 
   return (
     <div className="sign-in-card">
@@ -17,6 +29,7 @@ export const SignIn: React.FC = () => {
 
       <form
         className="sign-in-form"
+        onSubmit={ onSubmit }
       >
         <div className="email field">
           <label htmlFor="email-input">Email</label> 
@@ -60,7 +73,7 @@ export const SignIn: React.FC = () => {
         align-items: center;
       }
 
-      @media only screen and (max-width: 850px) {
+      @media only screen and (max-width: 768px) {
         .sign-in-card {
           flex-direction: column;
         }
