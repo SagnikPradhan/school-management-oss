@@ -34,7 +34,6 @@ export const getServerSideProps: GetServerSideProps<{
   user: null | Omit<UserProps, "_id" | "password" | "__v">
 }> = async ( context ) => {
   const session = await getSession( context )
-  console.log({ session })
 
   if ( session !== null ) {
     await makeSureServerIsFine()
