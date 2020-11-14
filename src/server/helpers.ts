@@ -1,12 +1,19 @@
+import { ServerError } from "./error"
 import assert from "assert"
 import makeSureDBConnected from "./database"
-import { ServerError } from "./error"
+
+let firstRun = true
 
 export async function makeSureServerIsFine(): Promise<void> {
+  if ( firstRun ) {
+    await initialiseServer()
+    firstRun = false
+  }
+
   await makeSureDBConnected()
 }
 
-export function initialiseServer(): void {
+function initialiseServer(): void {
   checkEnvironmentVariables()
 }
 

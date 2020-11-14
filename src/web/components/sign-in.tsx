@@ -59,7 +59,7 @@ export const SignIn: React.FC = () => {
         align-items: center;
       }
 
-      @media only screen and (max-width: 450px) {
+      @media only screen and (max-width: 850px) {
         .sign-in-card {
           flex-direction: column;
         }
