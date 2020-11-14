@@ -27,8 +27,7 @@ const options: InitOptions = {
     )
   ],
 
-  // @ts-expect-error Types seems to be messed up here
-  jwt: { signingKey: process.env.JWT_SECRET }
+  secret: process.env.JWT_SECRET
 }
 
 const handler = wrapHandler( ( req, res ) => NextAuth( req, res, options ) )
