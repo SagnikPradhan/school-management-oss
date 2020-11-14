@@ -10,9 +10,10 @@ import { Page } from "workspace/web/components/page"
 import { makeSureServerIsFine } from "workspace/server/helpers"
 import { User, UserProps } from "workspace/server/database/models/user"
 
-type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
-
 const SignIn = dynamic( () => import( "workspace/web/components/sign-in" ) )
+const Dashboard = dynamic( () => import( "workspace/web/components/dashboard" ) )
+
+type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const Home: React.FC<PageProps> = ({ user }) => (
   <>
@@ -23,7 +24,7 @@ const Home: React.FC<PageProps> = ({ user }) => (
     <Page
       header={<h3 className="header">School Management OSS</h3>}
     >
-      { !user && <SignIn /> }
+      { user ? <Dashboard /> : <SignIn /> }
     </Page>
   </>
 )
