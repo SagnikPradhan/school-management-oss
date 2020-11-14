@@ -20,17 +20,10 @@ const Home: React.FC<PageProps> = ({ user }) => (
       <title>School Management | { user ? "Dashboard" : "Sign In"}</title>
     </Head>
   
-    <Page>
-      <h2 className="header">School Management OSS</h2>
-
-      { user ? <code>{ JSON.stringify( user, null, 2 ) }</code> : <SignIn /> }
-
-      <style jsx>{`
-        .header {
-          margin: 1rem;
-          text-align: center;
-        }
-      `}</style>
+    <Page
+      header={<h3 className="header">School Management OSS</h3>}
+    >
+      { !user && <SignIn /> }
     </Page>
   </>
 )
@@ -41,6 +34,7 @@ export const getServerSideProps: GetServerSideProps<{
   user: null | Omit<UserProps, "_id" | "password" | "__v">
 }> = async ( context ) => {
   const session = await getSession( context )
+  console.log({ session })
 
   if ( session !== null ) {
     await makeSureServerIsFine()
