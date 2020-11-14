@@ -1,47 +1,44 @@
-import { Dispatch, useEffect, useReducer, useState } from "react"
+import { Dispatch, useReducer } from "react"
 import * as z from "zod"
 
 /**
  * useForm hook
  */
-export function useForm<F extends string>(): {
-  error: boolean
+export function useForm<
+  F extends string,
+  A, 
+  B extends z.ZodTypeDef,
+  S extends Record<F, z.ZodSchema<A, B>>
+>( schemas: S ): {
   state: FormState<F>
-  register: ReturnType<typeof registerInputFactory>
+  register: ( name: F ) => ( ev: React.ChangeEvent<HTMLInputElement> ) => void
 } {
-  const [ state, dispatchEvent ] = useReducer( reducer, {})
-  const [ error, setError ] = useState( false )
-
-  useEffect( () => 
-    setError(
-      Object
-        .values( state )
-        .some( ( fieldState ) => typeof fieldState?.error === "string" )
-    ),
-  [ state ] )
-
-  return {
-    error,
-    state,
-    register: registerInputFactory( dispatchEvent )
+  const initialState = { 
+    errors: {}, values: {}, isErrored: false, isDirty: false 
   }
-}
 
-/**
- * Register input paramters
- */
-export interface RegisterInputParams<A, B extends z.ZodTypeDef> {
-  name: string
-  schema: z.ZodSchema<A, B>
+  const [ state, dispatchEvent ] = useReducer( reducer, initialState )
+  return { state, register: registerInputFactory( dispatchEvent, schemas ) }
 }
 
 /**
  * Form state
  */
-export type FormState<F extends string> = Record<F, {
-  error: string | null
-  value: string | undefined
-} | undefined>
+export interface FormState<F extends string> {
+  errors: Record<F, string | undefined>
+  values: Record<F, string | undefined>
+  isErrored: boolean
+  isDirty: boolean
+}
+
+/**
+ * Internal dispatch params
+ */
+interface DispatchParams<F extends string> {
+  event: React.ChangeEvent<HTMLInputElement>
+  name: F
+  schema: z.ZodSchema<never, never>
+}
 
 /**
  * Reducer for our complex state
@@ -52,22 +49,25 @@ export type FormState<F extends string> = Record<F, {
  */
 function reducer<F extends string>(
   state: FormState<F>,
-  [ event, { name, schema } ]: [
-    React.ChangeEvent<HTMLInputElement>,
-    RegisterInputParams<never, never>
-  ]
+  { event, name, schema }: DispatchParams<F>
 ): FormState<F> {
   const value = event.target.value
   const result = schema.safeParse( value )
 
-  if ( result.success ) return { ...state, [name]: { value, error: null } } 
-  else return {
-    ...state,
-    [ name ]: {
-      value: undefined,
-      error: result.error.errors[0].message
-    }
+  const errors = { 
+    ...state.errors,
+    [ name ]: result.success ? undefined : result.error.errors[0].message
   }
+
+  const values = { 
+    ...state.values,
+    [ name ]: result.success ? result.data : undefined
+  }
+
+  const isErrored = Object.values( errors ).some( Boolean )
+  const isDirty = Object.values( values ).every( Boolean )
+
+  return { errors, values, isErrored, isDirty }
 }
 
 /**
@@ -75,20 +75,21 @@ function reducer<F extends string>(
  * 
  * @param dispatchEvent - React dispatch event method
  */
-function registerInputFactory(
-  dispatchEvent: Dispatch<[
-    React.ChangeEvent<HTMLInputElement>,
-    RegisterInputParams<never, never>
-  ]>
+function registerInputFactory<F extends string, A, B extends z.ZodTypeDef>(
+  dispatchEvent: Dispatch<DispatchParams<F>>,
+  schemas: Record<F, z.ZodSchema<A, B>>
 ) {
-  return function registerInput<A, B extends z.ZodTypeDef>(
-    name: string,
-    schema: z.ZodSchema<A, B>
+  return function registerInput(
+    name: F
   ) {
+    const schema = schemas[ name ]
+
     return ( event: React.ChangeEvent<HTMLInputElement> ) => {
-      dispatchEvent(
-        [ event, { name, schema: schema as z.ZodSchema<never, never> } ] 
-      )
+      dispatchEvent({
+        name, 
+        schema: schema as z.ZodSchema<never, never>,
+        event 
+      })
     }
   }
 }
