@@ -1,17 +1,18 @@
 import React from "react"
 
 import Head from "next/head"
-import { GetServerSideProps , InferGetServerSidePropsType } from "next"
+import dynamic from "next/dynamic"
+import { GetServerSideProps, InferGetServerSidePropsType } from "next"
 
 import { getSession } from "next-auth/client"
 
 import { Page } from "workspace/web/components/page"
-import { SignIn } from "workspace/web/components/sign-in"
-
 import { makeSureServerIsFine } from "workspace/server/helpers"
 import { User, UserProps } from "workspace/server/database/models/user"
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const SignIn = dynamic( () => import( "workspace/web/components/sign-in" ) )
 
 const Home: React.FC<PageProps> = ({ user }) => (
   <>

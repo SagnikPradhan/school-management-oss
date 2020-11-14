@@ -1,7 +1,8 @@
-import React from "react"
-import Image from "next/image"
-import { useForm } from "../hooks/form"
 import * as z from "zod"
+
+import Image from "next/image"
+import React from "react"
+import { useForm } from "../hooks/form"
 
 export const SignIn: React.FC = () => {
   const { register, state, error } = useForm()
@@ -139,3 +140,5 @@ export const SignIn: React.FC = () => {
     </div>
   )
 }
+
+export default SignIn
