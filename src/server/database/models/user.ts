@@ -6,11 +6,11 @@ const UserType = [ "student", "teacher", "staff", "admin" ] as const
 
 export const UserSchema = createSchema({
   name: Type.string({ required: true, trim: true }),
-  email: Type.string({ require: true, trim: true, unique: true }),
+  email: Type.string({ required: true, trim: true, unique: true }),
   password: Type.string({ required: true, select: false }),
   school: Type.string({ required: true, trim: true }),
   type: Type.string({ required: true, enum: UserType }),
-  image: Type.string({ default: "/image" })
+  image: Type.string({ default: "/default-avatar.svg" })
 })
 
 UserSchema.pre( "save", async function () {

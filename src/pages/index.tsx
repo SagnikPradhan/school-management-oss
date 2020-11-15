@@ -2,16 +2,18 @@ import React from "react"
 
 import Head from "next/head"
 import dynamic from "next/dynamic"
-import { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"
 
 import { getSession } from "next-auth/client"
 
 import { Page } from "workspace/web/components/page"
-import { makeSureServerIsFine } from "workspace/server/helpers"
-import { User, UserProps } from "workspace/server/database/models/user"
+import { ParsedUserDocument, parseUserDocument } from "workspace/web/helpers/parseUserDocument"
+
+import { makeSureServerIsFine } from "workspace/server/helpers/make-sure-server-is-fine"
+import { User } from "workspace/server/database/models/user"
 
 const SignIn = dynamic( () => import( "workspace/web/components/sign-in" ) )
-const Dashboard = dynamic( () => import( "workspace/web/components/dashboard" ) )
+const Dashboard = dynamic( () => import( "workspace/web/components/dashboard/index.mobile" ) )
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -24,16 +26,16 @@ const Home: React.FC<PageProps> = ({ user }) => (
     <Page
       header={<h3 className="header">School Management OSS</h3>}
     >
-      { user ? <Dashboard /> : <SignIn /> }
+      { user ? <Dashboard user={ user } /> : <SignIn /> }
     </Page>
   </>
 )
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps<{
-  user: null | Omit<UserProps, "_id" | "password" | "__v">
-}> = async ( context ) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext 
+): Promise<{ props: { user: null | ParsedUserDocument } }> => {
   const session = await getSession( context )
 
   if ( session !== null ) {
@@ -41,8 +43,7 @@ export const getServerSideProps: GetServerSideProps<{
     const databaseUser = await User.findOne({ email: session.user.email })
 
     if ( databaseUser ) {
-      const { name, email, school, type, image } = databaseUser
-      return { props: { user: { name, email, school, type, image } } }
+      return { props: { user: parseUserDocument( databaseUser ) } }
     }
   }
 

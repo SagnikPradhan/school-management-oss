@@ -26,7 +26,7 @@ export default async function init(): Promise<void> {
 
     const resetDatabase = 
       process.env.NODE_ENV === "development" &&
-      await User.estimatedDocumentCount() === 0
+      await User.estimatedDocumentCount() !== 0
 
     if ( resetDatabase ) {
       await User.deleteMany({})

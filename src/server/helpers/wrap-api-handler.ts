@@ -1,6 +1,6 @@
 import { NextApiHandler } from "next"
 import { handleErrorPlease } from "./error"
-import { makeSureServerIsFine } from "./helpers"
+import { makeSureServerIsFine } from "./make-sure-server-is-fine"
 
 /**
  * Wrap an api handler with helpers

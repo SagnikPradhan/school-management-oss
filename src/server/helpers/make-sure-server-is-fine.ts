@@ -1,6 +1,6 @@
 import { ServerError } from "./error"
 import assert from "assert"
-import makeSureDBConnected from "./database"
+import makeSureDBConnected from "../database"
 
 let firstRun = true
 

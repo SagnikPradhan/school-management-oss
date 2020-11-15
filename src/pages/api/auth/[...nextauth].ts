@@ -1,7 +1,7 @@
 import NextAuth, { InitOptions } from "next-auth"
 import Providers from "next-auth/providers"
 
-import { wrapHandler } from "workspace/server"
+import { wrapHandler } from "workspace/server/helpers/wrap-api-handler"
 import { User } from "workspace/server/database/models/user"
 
 const options: InitOptions = {

@@ -3,7 +3,7 @@
 import * as z from "zod"
 import React from "react"
 import { useForm } from "workspace/web/hooks/form"
-import { FormField } from "./form-field"
+import { FormField } from "./field"
 
 export type SubmitFn<Form> = ( fields: Record<keyof Form, string> ) => void
 

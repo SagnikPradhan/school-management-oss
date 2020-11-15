@@ -3,7 +3,7 @@ import React from "react"
 import Image from "next/image"
 import { signIn } from "next-auth/client"
 
-import { Form,  SubmitFn } from "./form"
+import { Form,  SubmitFn } from "../form"
 
 export const SignIn: React.FC = () => {
   const form = {
