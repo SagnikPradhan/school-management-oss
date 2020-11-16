@@ -1,37 +1,24 @@
 import { useEffect, useState } from "react"
 
-export function useMedia<T extends unknown>(
-  queries: string[],
-  values: T[],
-  defaultValue: T
-): T {
-  const mediaQueryLists = queries.map(
-    query => window.matchMedia( query )
-  )
+export const useMedia = ( media: string ): [ boolean | undefined, boolean ] => {
+  const [ match, setMatch ] = useState<boolean>()
+  const [ loading, setIsLoading ] = useState<boolean>( true )
 
-  const getValue = (): T => {
-    const index = mediaQueryLists.findIndex(
-      ( mediaQueryList ) => mediaQueryList.matches
-    )
-    
-    return values[ index ] ?? defaultValue
+  const handler = ( mediaQueryListEvent: MediaQueryListEvent ) => {
+    setMatch( mediaQueryListEvent.matches )
   }
-
-  const [ value, setValue ] = useState( getValue )
 
   useEffect(
     () => {
-      const handler = () => setValue( getValue )
-  
-      mediaQueryLists.forEach(
-        ( mediaQueryList ) => mediaQueryList.addEventListener( "change", handler )
-      )
+      const mediaQueryList = window.matchMedia( media )
+      setMatch( mediaQueryList.matches )
 
-      return () => mediaQueryLists.forEach(
-        ( mediaQueryList ) => mediaQueryList.removeEventListener( "change", handler )
-      )
-    }
+      setIsLoading( false )
+
+      mediaQueryList.addEventListener( "change", handler )
+      return () => mediaQueryList.removeEventListener( "change", handler )
+    }, []
   )
 
-  return value
+  return [ match, loading ]
 }
