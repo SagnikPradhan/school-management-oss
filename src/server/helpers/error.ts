@@ -7,7 +7,10 @@ export function handleErrorPlease( error: Error ): void {
 
   if ( error instanceof ServerError && error.isOperational ) return
 
-  else process.exit( 1 )
+  else {
+    console.log( "Making a clean exit" )
+    process.exit( 1 )
+  }
 }
 
 export class ServerError extends Error {

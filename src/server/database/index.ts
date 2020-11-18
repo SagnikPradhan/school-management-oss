@@ -12,6 +12,8 @@ export default async function init(): Promise<void> {
 
   if ( connected ) return
   else {
+    console.log( "Connecting to database" )
+
     const dbName = process.env.MONGODB_DBNAME
     const username = process.env.MONGODB_USERNAME
     const password = process.env.MONGODB_PASSWORD

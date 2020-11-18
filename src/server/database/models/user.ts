@@ -8,19 +8,19 @@ export const UserSchema = createSchema({
   name: Type.string({ required: true, trim: true }),
   email: Type.string({ required: true, trim: true, unique: true }),
   password: Type.string({ required: true, select: false }),
+  image: Type.string({ default: "/default-avatar.svg" }),
+  
   school: Type.string({ required: true, trim: true }),
-  type: Type.string({ required: true, enum: UserType }),
-  image: Type.string({ default: "/default-avatar.svg" })
+
+  type: Type.string({ required: true, enum: UserType })
 })
 
 UserSchema.pre( "save", async function () {
+  // Before saving to database hash user password
   const user = this as UserDoc
   const hashedPassword = await hash( user.password, 10 )
   user.password = hashedPassword
 })
-
-export type UserDoc = ExtractDoc<typeof UserSchema>
-export type UserProps = ExtractProps<typeof UserSchema>
 
 const StaticMethods = {
   verifyUser: async function( password: string, user: UserDoc ) {
@@ -28,6 +28,11 @@ const StaticMethods = {
   }
 }
 
+type UserModel = mongoose.Model<UserDoc> & typeof StaticMethods
 export const User = 
-  mongoose.models["users"] as mongoose.Model<UserDoc> & typeof StaticMethods || 
+  mongoose.models["users"] as UserModel || 
   typedModel( "users", UserSchema, undefined, undefined, StaticMethods )
+
+
+export type UserDoc = ExtractDoc<typeof UserSchema>
+export type UserProps = ExtractProps<typeof UserSchema>

@@ -1,0 +1,17 @@
+import styled from "styled-components"
+
+export const Input = styled.input`
+  border: none;
+
+  font-family: ${( props ) => props.theme.fonts[1]};
+  font-size: 0.9rem;
+  padding: 0.75em;
+  background: ${({ theme: { palette } }) => palette[3]};
+
+  border-radius: 5px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 1px solid rgba(0, 0, 0, 0.5);
+  margin: 1rem 0;
+`
+
+export default Input

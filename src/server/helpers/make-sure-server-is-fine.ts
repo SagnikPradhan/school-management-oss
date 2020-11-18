@@ -6,14 +6,17 @@ let firstRun = true
 
 export async function makeSureServerIsFine(): Promise<void> {
   if ( firstRun ) {
+    console.log( "First run" )
     await initialiseServer()
+
     firstRun = false
   }
-
+  
   await makeSureDBConnected()
 }
 
 function initialiseServer(): void {
+  console.log( "Checking environment variables" )
   checkEnvironmentVariables()
 }
 
