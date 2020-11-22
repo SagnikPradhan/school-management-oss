@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { initFirebase } from "../workers/firebase.worker"
 
 const Layout = styled.div`
   height: 100vh;
@@ -16,6 +17,8 @@ const Heading = styled.h1`
 `
 
 export default function Home() {
+  initFirebase().catch(console.error)
+
   return (
     <Layout>
       <Heading>Hey there!</Heading>
