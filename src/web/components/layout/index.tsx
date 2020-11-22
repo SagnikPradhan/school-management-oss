@@ -14,8 +14,3 @@ export const Layout = styled.div<LayoutProps>`
 `
 
 export default Layout
-
-export const FullPageLayout = styled( Layout )`
-  height: 100vh;
-  overflow: hidden;
-`

@@ -26,7 +26,7 @@ class AppDocument extends Document {
           <meta property="twitter:description" content="Simple school management in matter of  some clicks. Dashboard for students, teachers and school admins." />
         
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans&display=swap" rel="stylesheet" /> 
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans&family=Roboto&display=swap" rel="stylesheet" /> 
         </Head>
 
         <body>

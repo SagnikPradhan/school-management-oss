@@ -3822,6 +3822,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^2.16.1":
+  version: 2.16.1
+  resolution: "date-fns@npm:2.16.1"
+  checksum: fbe5d9aa1dc4c92c7cf9c0b31e58f532ac9fe059f85fc622641b1ac9c673150329620ea6bf941a8ba10e8e677aa0b6ccdc04ce001f81e70fd49acd1760edcba0
+  languageName: node
+  linkType: hard
+
 "debounce-fn@npm:^4.0.0":
   version: 4.0.0
   resolution: "debounce-fn@npm:4.0.0"
@@ -9068,6 +9075,7 @@ resolve@~1.12.0:
     babel-plugin-styled-components: ^1.11.1
     bcrypt: ^5.0.0
     cachegoose: ^8.0.0
+    date-fns: ^2.16.1
     eslint: ^7.13.0
     eslint-plugin-react: ^7.21.5
     eslint-plugin-tsdoc: ^0.2.7

@@ -11,6 +11,7 @@ const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
 }
 
 export default styled( Button )`
+  font-weight: 500;
   font-family: ${( props ) => props.theme.fonts[1]};
   font-size: 1rem;
   text-transform: capitalize;

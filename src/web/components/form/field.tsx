@@ -8,11 +8,13 @@ const FieldWrapper = styled.fieldset`
 
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   justify-content: center;
   align-items: flex-start;
   border: none;
 
-  font-family: ${( props ) => props.theme.fonts[1]};
+  font-family: ${( props ) => props.theme.fonts[0]};
+  color: ${( props ) => props.theme.palette[4]};
 `
 
 type InputProps = React.HTMLProps<HTMLInputElement>

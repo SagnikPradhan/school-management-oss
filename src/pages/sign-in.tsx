@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { FullPageLayout } from "workspace/web/components/layout"
+import Layout from "workspace/web/components/layout"
 import Form from "workspace/web/components/form"
 import Field from "workspace/web/components/form/field"
 import Button from "workspace/web/components/button"
@@ -10,10 +10,14 @@ import { useForm } from "workspace/web/hooks/form"
 import * as z from "zod"
 import { signIn } from "next-auth/client"
 
-const SignInLayout = styled( FullPageLayout ).attrs({
-  center: true
-})`
-  background: ${({ theme: { palette } }) => palette[5]}
+const SignInLayout = styled( Layout )`
+  height: 100vh;
+  background: ${({ theme: { palette } }) => palette[5]};
+`
+
+const Error = styled.span`
+  font-family: ${({ theme: { fonts } }) => fonts[2]};
+  color: black;
 `
 
 export const SignInPage: React.FC = () => {
@@ -30,18 +34,18 @@ export const SignInPage: React.FC = () => {
   }
 
   return (
-    <SignInLayout className="sign-in">
+    <SignInLayout center className="sign-in">
       <Form className="sign-in" onSubmit={ onSubmit }>
-        <Field onChange={ register( "email" ) } name="Email" type="email" />
-        <Field onChange={ register( "password" ) } name="Password" type="password" />
+        <Field onChange={ register( "email" ) } name="Your Email" type="email" />
+        <Field onChange={ register( "password" ) } name="Your Password" type="password" />
 
-        <span className="error">
+        <Layout as="span" className="error">
           { 
             Object
               .values( state.errors )
-              .map( ( err, key ) => <span key={ key }>{ err }</span> ) 
+              .map( ( err, key ) => <Error key={ key }>{ err }</Error> ) 
           }
-        </span>
+        </Layout>
 
         <Button disabled={ !!state.errors || !state.isDirty } type="submit">Sign in</Button>
       </Form>

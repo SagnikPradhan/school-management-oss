@@ -24,6 +24,7 @@ const theme: DefaultTheme = {
   ],
 
   fonts: [
+    "'Roboto', sans-serif",
     "'Montserrat', sans-serif",
     "'Open Sans', sans-serif"
   ]

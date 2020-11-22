@@ -8,10 +8,10 @@ export const Form = styled.form`
   gap: 1rem;
   padding: 2rem;
 
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
 
-  background: ${({ theme: { palette } }) => palette[4]};
+  background: ${({ theme: { palette } }) => palette[1]};
 `
 
 export default Form
