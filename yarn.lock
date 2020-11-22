@@ -6613,6 +6613,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"prettier@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "prettier@npm:2.2.0"
+  bin:
+    prettier: bin-prettier.js
+  checksum: fe7e2ac725d3b067204700c5fcee415a90e1c1ab01735a7748bce791db61a3242939a032bfe5f8faa2c054571f4e9bac266b766e483648511af72f69fb041a6c
+  languageName: node
+  linkType: hard
+
 "process-nextick-args@npm:~2.0.0":
   version: 2.0.1
   resolution: "process-nextick-args@npm:2.0.1"
@@ -7309,6 +7318,7 @@ fsevents@~2.1.2:
     babel-plugin-styled-components: ^1.11.1
     gitmoji-cli: ^3.2.12
     next: 10.0.1
+    prettier: ^2.2.0
     react: 17.0.1
     react-dom: 17.0.1
     react-is: ^17.0.1

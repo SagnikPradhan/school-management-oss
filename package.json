@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "commit": "gitmoji-cli commit"
+    "commit": "gitmoji --commit"
   },
   "dependencies": {
     "next": "10.0.1",
@@ -22,6 +22,10 @@
     "@types/styled-components": "^5.1.4",
     "babel-plugin-styled-components": "^1.11.1",
     "gitmoji-cli": "^3.2.12",
+    "prettier": "^2.2.0",
     "typescript": "^4.0.5"
+  },
+  "prettier": {
+    "semi": false
   }
 }
