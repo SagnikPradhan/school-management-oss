@@ -18,7 +18,7 @@ export const signIn = (provider: "google" | "facebook") => {
   signInProcess.catch((err) => {
     console.error(err)
 
-    if ((err.code = "auth/account-exists-with-different-credential")) {
+    if (err.code === "auth/account-exists-with-different-credential") {
       const usersOtherProvider =
         provider === "google" ? FacebookSignInProvider : GoogleSignInProvider
 
