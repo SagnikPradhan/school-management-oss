@@ -1,6 +1,5 @@
 import firebase from "firebase/app"
 
-import "firebase/analytics"
 import "firebase/auth"
 
 const firebaseConfig = {
@@ -14,6 +13,7 @@ const firebaseConfig = {
   measurementId: "G-B2BJWZSYN2",
 }
 
-export const initFirebase = async () => {
+if (typeof window !== "undefined" && firebase.apps.length === 0)
   firebase.initializeApp(firebaseConfig)
-}
+
+export default firebase

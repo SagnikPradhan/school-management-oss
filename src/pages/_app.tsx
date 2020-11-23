@@ -1,5 +1,6 @@
 import { AppProps } from "next/app"
 import { createGlobalStyle } from "styled-components"
+import { UserProvider } from "workspace/contexts/user"
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -13,7 +14,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </>
   )
 }
