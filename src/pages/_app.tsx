@@ -1,47 +1,22 @@
-import React from "react"
 import { AppProps } from "next/app"
-import { Provider as AuthProvider } from 'next-auth/client'
-import { createGlobalStyle, DefaultTheme, ThemeProvider } from "styled-components"
+import { createGlobalStyle } from "styled-components"
+import { UserProvider } from "workspace/contexts/user"
 
-const GlobalStyles = createGlobalStyle`
-  html, body {
-    margin: 0px;
-    background: black;
-    color: white;
-    font-size: 18px;
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 `
 
-// Palette https://coolors.co/392da6-a59ffc-b6b1f0-bcbad1-070521-01000a
-const theme: DefaultTheme = {
-  palette: [
-    "#392da6",
-    "#a59ffc",
-    "#b6b1f0",
-    "#bcbad1",
-    "#070521",
-    "#01000a",
-  ],
-
-  fonts: [
-    "'Roboto', sans-serif",
-    "'Montserrat', sans-serif",
-    "'Open Sans', sans-serif"
-  ]
-}
-
-
-const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <AuthProvider session={ pageProps.session }>
-        <GlobalStyles />
-        <ThemeProvider theme={ theme }>
-          <Component { ...pageProps } />
-        </ThemeProvider>
-      </AuthProvider>
+      <GlobalStyle />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </>
   )
 }
-
-export default App

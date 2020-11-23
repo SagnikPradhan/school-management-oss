@@ -12,7 +12,7 @@
     "forceConsistentCasingInFileNames": true,
 
     "target": "es6",
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "esnext", "WebWorker"],
 
     "allowJs": true,
     "noEmit": true,
