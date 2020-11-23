@@ -1,8 +1,11 @@
 import React from "react"
 import styled from "styled-components"
+import dynamic from "next/dynamic"
 
-import firebase from "workspace/firebase"
 import { useUser } from "workspace/contexts/user"
+import { Button } from "workspace/components/basic/button"
+import { signOut } from "workspace/firebase/auth"
+import { Text } from "workspace/components/basic/text"
 
 const Layout = styled.div`
   height: 100vh;
@@ -18,31 +21,27 @@ const Heading = styled.h1`
   text-align: center;
 `
 
-const GoogleSignInProvider = new firebase.auth.GoogleAuthProvider()
-GoogleSignInProvider.addScope("profile")
-GoogleSignInProvider.addScope("email")
+const SignIn = dynamic(() => import("workspace/components/complex/sign-in"))
 
 export default function Home() {
-  const { user, isLoading } = useUser()
+  const { user } = useUser()
 
   return (
     <Layout>
       <Heading>Hey there!</Heading>
 
-      <p>{isLoading ? "loading" : "loaded"}</p>
+      {user ? (
+        <>
+          <code>
+            <pre>{JSON.stringify(user, null, 4)}</pre>
+          </code>
 
-      <code>
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-      </code>
-
-      {!user ? (
-        <button
-          onClick={() => firebase.auth().signInWithPopup(GoogleSignInProvider)}
-        >
-          Sign In
-        </button>
+          <Button onClick={signOut}>
+            <Text>Sign Out</Text>
+          </Button>
+        </>
       ) : (
-        <button onClick={() => firebase.auth().signOut()}>Sign Out</button>
+        <SignIn></SignIn>
       )}
     </Layout>
   )
