@@ -36,9 +36,7 @@ export default function Home() {
             <pre>{JSON.stringify(user, null, 4)}</pre>
           </code>
 
-          <Button onClick={signOut}>
-            <Text>Sign Out</Text>
-          </Button>
+          <Button onClick={signOut}>Sign Out</Button>
         </>
       ) : (
         <SignIn></SignIn>

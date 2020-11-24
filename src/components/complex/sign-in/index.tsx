@@ -2,33 +2,21 @@ import React from "react"
 
 import { Card } from "workspace/components/basic/card"
 import { Button } from "workspace/components/basic/button"
-import { Text } from "workspace/components/basic/text"
 
 import { signIn } from "workspace/firebase/auth"
 
 export default function SignIn() {
   return (
     <Card>
-      <Text size={2}>Sign In</Text>
+      <h1>Sign In</h1>
 
-      <Text pad>Sign into your account.</Text>
+      <p>Sign into your account</p>
 
-      <Button variant={0} onClick={() => signIn("google")}>
-        <Text>
-          Sign in with
-          <Text as="b" bold>
-            Google
-          </Text>
-        </Text>
-      </Button>
+      <span className="spacer"></span>
 
-      <Button variant={1} onClick={() => signIn("facebook")}>
-        <Text>
-          Sign in with
-          <Text as="b" bold>
-            Facebook
-          </Text>
-        </Text>
+      <Button onClick={() => signIn("google")}>Sign in with Google</Button>
+      <Button variant="secondary" onClick={() => signIn("facebook")}>
+        Sign in with Facebook
       </Button>
     </Card>
   )
