@@ -1,28 +1,7 @@
-import { AppProps } from "next/app"
+import "tailwindcss/tailwind.css"
 import Head from "next/head"
-import { createGlobalStyle } from "styled-components"
-import { UserProvider } from "workspace/contexts/user"
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-size: 18px;
-  }
-
-  h1, h2, h3 {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    margin: 1rem 0;
-  }
-
-  p {
-    margin: 0;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 400;
-  }
-`
+import { AppProps } from "next/app"
+import { UserProvider } from "u/contexts/user"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -30,12 +9,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
           rel="stylesheet"
         />
       </Head>
 
-      <GlobalStyle />
       <UserProvider>
         <Component {...pageProps} />
       </UserProvider>
