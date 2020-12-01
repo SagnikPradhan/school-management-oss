@@ -69,7 +69,7 @@ const SignInPage = () => {
             validate={emailFormValidateFn}
             onSubmit={({ email, password }) => emailSignIn(email, password)}
           >
-            {({ isSubmitting }) => (
+            {({ dirty, isValid }) => (
               <Form className="flex flex-col items-center justify-center gap-4">
                 <label
                   htmlFor="email"
@@ -98,12 +98,14 @@ const SignInPage = () => {
                 <div className="text-purple-100 text-sm flex flex-col items-center text-center">
                   <ErrorMessage name="password" component="span" />
                   <ErrorMessage name="email" component="span" />
-                  {emailSignInError?.props.message}
+                  {emailSignInError && (
+                    <span>{emailSignInError.props.message}</span>
+                  )}
                 </div>
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={!dirty || !isValid}
                   className="bg-white py-3 px-6 rounded text-gray-900 font-semibold hover:bg-green-500 hover:text-white hover:shadow"
                 >
                   Sign in with Credentials
