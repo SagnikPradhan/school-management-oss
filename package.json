@@ -25,6 +25,7 @@
     "@types/styled-components": "^5.1.4",
     "autoprefixer": "^10.0.4",
     "babel-plugin-styled-components": "^1.11.1",
+    "babel-plugin-transform-builtin-extend": "^1.1.2",
     "comlink-loader": "^2.0.0",
     "gitmoji-cli": "^3.2.12",
     "postcss": "^8.1.10",
