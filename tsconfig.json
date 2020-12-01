@@ -26,7 +26,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "workspace/*": ["src/*"]
+      "d/*": ["src/design/*"],
+      "u/*": ["src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
