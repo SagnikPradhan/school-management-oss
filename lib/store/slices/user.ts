@@ -1,18 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface UserDetails {
-  uid: string;
-  email: string | null;
-  photoURL: string | null;
-  displayName: string | null;
-}
-
-export type User = UserDetails | null;
+import { User } from "lib/types/user";
 
 export const { reducer, actions } = createSlice({
   name: "user",
-  initialState: null as User,
+  initialState: null as User | null,
   reducers: {
-    update: (_, action: PayloadAction<User>) => action.payload,
+    update: (_, action: PayloadAction<User | null>) => action.payload,
   },
 });
