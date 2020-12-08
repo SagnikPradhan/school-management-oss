@@ -1,28 +1,36 @@
-import { useOAuth } from "lib/auth/sign-in-hook";
+import { useSignIn } from "lib/auth/sign-in-hook";
 import { State } from "lib/store";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function SignInPage() {
-  const { signIn, providers, signOut, error } = useOAuth();
+  const { signIn, providers, error } = useSignIn();
+  const router = useRouter();
   const user = useSelector<State, State["user"]>((state) => state.user);
 
-  return (
-    <div>
-      <div>User - {JSON.stringify(user)}</div>
+  useEffect(() => {
+    if (user) setTimeout(() => router.push("/dashboard"), 1000);
+  }, [user]);
 
-      <div>{error}</div>
+  if (user)
+    return (
+      <div>
+        <h1>Redirecting you to dashboard</h1>
+      </div>
+    );
+  else
+    return (
+      <div>
+        <div>{error}</div>
 
-      {!user ? (
-        providers.map((provider, key) => (
+        {providers.map((provider, key) => (
           <button key={key} onClick={() => signIn(provider)}>
             Sign in with {provider}
           </button>
-        ))
-      ) : (
-        <button onClick={() => signOut()}>Sign out</button>
-      )}
-    </div>
-  );
+        ))}
+      </div>
+    );
 }
 
 export const getServerSideProps = () => {
