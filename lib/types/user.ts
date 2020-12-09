@@ -5,19 +5,27 @@ interface BaseUser {
   photoURL: string;
 }
 
-interface Admin extends BaseUser {
+export interface Admin extends BaseUser {
   role: "admin";
 }
 
-interface SchoolStaff extends BaseUser {
-  role: "school-admin" | "teacher";
+interface SchoolBaseUser extends BaseUser {
   school: string;
 }
 
-interface Student extends BaseUser {
+export interface SchoolAdmin extends BaseUser, SchoolBaseUser {
+  role: "school-admin";
+}
+
+export interface SchoolTeacher extends BaseUser, SchoolBaseUser {
+  role: "school-teacher";
+  subjects: string[];
+}
+
+export interface Student extends BaseUser, SchoolBaseUser {
   role: "student";
-  school: string;
   grade: string;
 }
 
+export type SchoolStaff = SchoolAdmin | SchoolTeacher;
 export type User = Admin | SchoolStaff | Student;
