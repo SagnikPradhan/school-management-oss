@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import * as z from "zod";
 
-type InitalValueWithValidator = Record<
+export type InitalValueWithValidator = Record<
   string,
   [any, z.Schema<any, any>, string]
 >;
