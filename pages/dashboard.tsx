@@ -6,6 +6,7 @@ import { State } from "lib/store";
 import { useAsync } from "lib/utility/async.hook";
 import { signOut } from "lib/auth/sign-out";
 import { SchoolAdminCreationForm } from "lib/components/school-admin-creation";
+import { SchoolAdminList } from "lib/components/school-admin-list";
 
 export default function Dashboard() {
   const user = useSelector<State, State["user"]>((s) => s.user);
@@ -29,6 +30,7 @@ export default function Dashboard() {
         <div>
           <h2>School Admin Creation Form</h2>
           <SchoolAdminCreationForm />
+          <SchoolAdminList />
         </div>
         <button onClick={signOutWrapper}>Sign Out</button>
       </div>

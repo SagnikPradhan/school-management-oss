@@ -1,4 +1,11 @@
-import { Field, Form as FormikForm, Formik, FormikHelpers } from "formik";
+import {
+  ErrorMessage,
+  Field,
+  Form as FormikForm,
+  Formik,
+  FormikHelpers,
+} from "formik";
+import { useState } from "react";
 import * as z from "zod";
 
 type InitalValueWithValidator = Record<
@@ -15,11 +22,10 @@ export const Form = <V extends InitalValueWithValidator>({
   onSubmit,
 }: {
   values: V;
-  onSubmit: (
-    values: GetInitialValues<V>,
-    formikHelpers: FormikHelpers<GetInitialValues<V>>
-  ) => void;
+  onSubmit: (values: GetInitialValues<V>) => Promise<void>;
 }) => {
+  const [error, setError] = useState<string | null>(null);
+
   const initialValues = Object.fromEntries(
     Object.entries(values).map(([key, [initalValue]]) => [key, initalValue])
   ) as GetInitialValues<V>;
@@ -38,12 +44,25 @@ export const Form = <V extends InitalValueWithValidator>({
     };
   };
 
+  const onSubmitWrapper = (
+    values: GetInitialValues<V>,
+    formikHelpers: FormikHelpers<GetInitialValues<V>>
+  ) => {
+    onSubmit(values)
+      .then(() => formikHelpers.resetForm())
+      .catch((err) => setError(err.message))
+      .finally(() => formikHelpers.setSubmitting(false));
+  };
+
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} onSubmit={onSubmitWrapper}>
       <FormikForm>
         {Object.entries(values).map(([key, [_, validator, type]]) => (
-          <div>
+          <div key={key}>
             <label htmlFor={key}>{key}</label>
+
+            <ErrorMessage name={key} />
+
             <Field
               name={key}
               type={type}
@@ -51,6 +70,8 @@ export const Form = <V extends InitalValueWithValidator>({
             />
           </div>
         ))}
+
+        <div className="errors">{error}</div>
 
         <button type="submit">Submit</button>
       </FormikForm>

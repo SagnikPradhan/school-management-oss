@@ -12,16 +12,12 @@ export const SchoolAdminCreationForm = () => {
         email: ["", z.string().email(), "email"],
         school: ["", z.string(), "text"],
       }}
-      onSubmit={(value, { setSubmitting }) => {
-        firestore
-          .doc(`/users/${value.email}`)
-          .set({
-            role: "school-admin",
-            email: value.email,
-            school: value.school,
-          } as User)
-          .catch(console.error)
-          .finally(() => setSubmitting(false));
+      onSubmit={(value) => {
+        return firestore.doc(`/users/${value.email}`).set({
+          role: "school-admin",
+          email: value.email,
+          school: value.school,
+        } as User);
       }}
     />
   );
