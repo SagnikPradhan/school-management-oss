@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 import { State } from "lib/store";
 import { useAsync } from "lib/utility/async.hook";
 import { signOut } from "lib/auth/sign-out";
-import { SchoolAdminCreationForm } from "lib/components/school-admin-creation";
-import { SchoolAdminList } from "lib/components/school-admin-list";
+import AdminDashoard from "./_admin-dashboard";
 
 export default function Dashboard() {
   const user = useSelector<State, State["user"]>((s) => s.user);
@@ -26,12 +25,7 @@ export default function Dashboard() {
   else
     return (
       <div>
-        <h1>Welcome to the dasboard</h1>
-        <div>
-          <h2>School Admin Creation Form</h2>
-          <SchoolAdminCreationForm />
-          <SchoolAdminList />
-        </div>
+        {user.role === "admin" && <AdminDashoard />}
         <button onClick={signOutWrapper}>Sign Out</button>
       </div>
     );

@@ -1,8 +1,8 @@
 interface BaseUser {
-  uid: string;
-  displayName: string;
+  uid?: string;
+  displayName?: string;
   email: string;
-  photoURL: string;
+  photoURL?: string;
 }
 
 export interface Admin extends BaseUser {
