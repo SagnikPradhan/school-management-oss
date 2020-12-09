@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import firebase from "lib/utility/firebase";
 import { Form, InitalValueWithValidator } from "lib/components/form";
 import { SchoolStaff, Student, User } from "lib/types/user";
+import { Table } from "lib/components/table";
 
 export const SchoolUsers = <T extends SchoolStaff | Student>({
   role,
@@ -72,14 +73,18 @@ export const SchoolUsers = <T extends SchoolStaff | Student>({
 
   return (
     <div>
-      <ol className="list">
-        {users.map((user) => (
-          <li>
-            {user.email} {school && user.school} {user.displayName}
-            <button onClick={() => deleteUser(user.email)}>Delete</button>
-          </li>
-        ))}
-      </ol>
+      <Table
+        headers={{
+          school: {},
+          email: { header: true },
+          delete: { display: false },
+        }}
+        data={users.map(({ email, school }) => ({
+          email,
+          school,
+          delete: <button onClick={() => deleteUser(email)}>Delete</button>,
+        }))}
+      />
 
       <Form
         values={fields}

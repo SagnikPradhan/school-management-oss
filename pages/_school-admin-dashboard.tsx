@@ -8,7 +8,11 @@ export default function SchoolAdminDashboard({
 }) {
   return (
     <div>
+      <h1>Teachers</h1>
       <SchoolUsers<SchoolTeacher> role="school-teacher" school={admin.school} />
+      <hr />
+
+      <h1>Students</h1>
       <SchoolUsers<Student> role="student" school={admin.school} />
     </div>
   );
