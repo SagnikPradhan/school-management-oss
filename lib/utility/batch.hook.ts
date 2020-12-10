@@ -51,10 +51,10 @@ export function useBatch<D extends firebase.firestore.DocumentData>(
   /**
    * Delete data
    * @param id - Id of the data
-   * @param data - Filter document
+   * @param selector - Selector of id in the document
    */
-  function deleteFn(id: string, data: Partial<D>) {
-    setProxyData(proxyData.filter((d) => d !== data));
+  function deleteFn(id: string, idSelector: keyof D) {
+    setProxyData(proxyData.filter((d) => d[idSelector] !== id));
     batch.current.delete(collection.doc(id));
     setChangesToBeCommitted(true);
   }

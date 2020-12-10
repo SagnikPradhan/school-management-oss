@@ -2,7 +2,7 @@ import * as z from "zod";
 
 import { SchoolAdmin } from "lib/types/user";
 import { useBatch } from "lib/utility/batch.hook";
-import { Form } from "lib/components/form";
+import { Form, Field } from "lib/components/form-better";
 import { Table } from "lib/components/table";
 
 export default function AdminDashboard() {
@@ -13,23 +13,32 @@ export default function AdminDashboard() {
   return (
     <div className="page">
       <Table
-        headers={{ email: { header: true }, school: {} }}
+        headers={{
+          email: { header: true },
+          school: {},
+          delete: { display: false },
+        }}
         data={users.data.map(({ email, school }) => ({
           email,
           school,
+          delete: (
+            <button onClick={() => users.delete(email, "email")}>Delete</button>
+          ),
         }))}
       />
 
       <Form
-        values={{
-          email: ["", z.string().email(), "email"],
-          school: ["", z.string(), "text"],
-        }}
-        onSubmit={async ({ email, school }) =>
-          users.add(email, { email, school, role: "school-admin" })
-        }
-      />
+        id="school-account-add-form"
+        initialValues={{ email: "", school: "" }}
+        onSubmit={(d) => users.add(d.email, { ...d, role: "school-admin" })}
+      >
+        <Field name="email" schema={z.string().email()} type="email" />
+        <Field name="school" schema={z.string()} type="text" />
+      </Form>
 
+      <button form="school-account-add-form" type="submit">
+        Add
+      </button>
       <button onClick={users.commitAndReset}>Commit</button>
     </div>
   );
