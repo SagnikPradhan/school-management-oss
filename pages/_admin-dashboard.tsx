@@ -2,7 +2,7 @@ import * as z from "zod";
 
 import { SchoolAdmin } from "lib/types/user";
 import { useBatch } from "lib/utility/batch.hook";
-import { Form, Field } from "lib/components/form-better";
+import { Form, Field } from "lib/components/form";
 import { Table } from "lib/components/table";
 
 export default function AdminDashboard() {

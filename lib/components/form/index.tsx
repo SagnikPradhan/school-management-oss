@@ -1,80 +1,52 @@
 import {
   ErrorMessage,
-  Field,
+  Field as FormikField,
   Form as FormikForm,
   Formik,
-  FormikHelpers,
+  FormikConfig,
+  FormikValues,
 } from "formik";
-import { useState } from "react";
+import { ReactNode } from "react";
 import * as z from "zod";
 
-export type InitalValueWithValidator = Record<
-  string,
-  [any, z.Schema<any, any>, string]
->;
+type FormProps<V> = FormikConfig<V> & { children: ReactNode; id: string };
 
-type GetInitialValues<V extends InitalValueWithValidator> = {
-  [K in keyof V]: V[K][0];
-};
+export const Form = <V extends FormikValues>({
+  children,
+  id,
+  ...props
+}: FormProps<V>) => (
+  <Formik {...props}>
+    <FormikForm id={id}>{children}</FormikForm>
+  </Formik>
+);
 
-export const Form = <V extends InitalValueWithValidator>({
-  values,
-  onSubmit,
+export const Field = <A, B extends z.ZodTypeDef>({
+  schema,
+  name,
+  type,
 }: {
-  values: V;
-  onSubmit: (values: GetInitialValues<V>) => Promise<void>;
-}) => {
-  const [error, setError] = useState<string | null>(null);
+  name: string;
+  type: string;
+  schema: z.Schema<A, B>;
+}) => (
+  <div>
+    <label htmlFor={name}>{name}</label>
+    <ErrorMessage name={name} />
+    <FormikField name={name} type={type} validate={wrapSchema(schema)} />
+  </div>
+);
 
-  const initialValues = Object.fromEntries(
-    Object.entries(values).map(([key, [initalValue]]) => [key, initalValue])
-  ) as GetInitialValues<V>;
+const wrapSchema = (validator: z.Schema<any, any>) => {
+  return (value: any): string | void => {
+    const result = validator.safeParse(value);
 
-  const validationWrapper = (validator: z.Schema<any, any>) => {
-    return (value: any): string | void => {
-      const result = validator.safeParse(value);
-
-      if (result.success) return;
-      else {
-        const {
-          error: { errors },
-        } = result;
-        return errors[0]?.message;
-      }
-    };
+    if (result.success) return;
+    else {
+      const {
+        error: { errors },
+      } = result;
+      return errors[0]?.message;
+    }
   };
-
-  const onSubmitWrapper = (
-    values: GetInitialValues<V>,
-    formikHelpers: FormikHelpers<GetInitialValues<V>>
-  ) => {
-    onSubmit(values)
-      .then(() => formikHelpers.resetForm())
-      .catch((err) => setError(err.message))
-      .finally(() => formikHelpers.setSubmitting(false));
-  };
-
-  return (
-    <Formik initialValues={initialValues} onSubmit={onSubmitWrapper}>
-      <FormikForm>
-        {Object.entries(values).map(([key, [_, validator, type]]) => (
-          <div key={key}>
-            <label htmlFor={key}>{key}</label>
-
-            <ErrorMessage name={key} />
-
-            <Field
-              name={key}
-              type={type}
-              validate={validationWrapper(validator)}
-            />
-          </div>
-        ))}
-
-        <div className="errors">{error}</div>
-
-        <button type="submit">Submit</button>
-      </FormikForm>
-    </Formik>
-  );
 };

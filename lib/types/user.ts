@@ -19,12 +19,12 @@ export interface SchoolAdmin extends BaseUser, SchoolBaseUser {
 
 export interface SchoolTeacher extends BaseUser, SchoolBaseUser {
   role: "school-teacher";
-  subjects: string[];
+  subjects?: string[];
 }
 
 export interface Student extends BaseUser, SchoolBaseUser {
   role: "student";
-  grade: string;
+  grade?: string;
 }
 
 export type SchoolStaff = SchoolAdmin | SchoolTeacher;
