@@ -13,7 +13,7 @@ export interface LoginAttempt {
   creds: firebase.auth.AuthCredential;
 }
 
-export function useOAuth() {
+export function useSignIn() {
   // Generated from signInWithPopup method
   const [userCreds, setUserCreds] = useState<firebase.auth.UserCredential>();
   const [firebaseError, setFirebaseError] = useState<firebase.auth.AuthError>();
@@ -67,13 +67,6 @@ export function useOAuth() {
         .signInWithPopup(provider)
         .then((userCreds) => setUserCreds(userCreds))
         .catch((error) => setFirebaseError(error));
-    },
-
-    signOut: () => {
-      firebase
-        .auth()
-        .signOut()
-        .catch((error) => console.log(error));
     },
   };
 }
