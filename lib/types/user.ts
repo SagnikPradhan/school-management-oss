@@ -1,8 +1,5 @@
 interface BaseUser {
-  uid?: string;
-  displayName?: string;
   email: string;
-  photoURL?: string;
 }
 
 export interface Admin extends BaseUser {
@@ -13,18 +10,16 @@ interface SchoolBaseUser extends BaseUser {
   school: string;
 }
 
-export interface SchoolAdmin extends BaseUser, SchoolBaseUser {
+export interface SchoolAdmin extends SchoolBaseUser {
   role: "school-admin";
 }
 
-export interface SchoolTeacher extends BaseUser, SchoolBaseUser {
+export interface SchoolTeacher extends SchoolBaseUser {
   role: "school-teacher";
-  subjects?: string[];
 }
 
-export interface Student extends BaseUser, SchoolBaseUser {
+export interface Student extends SchoolBaseUser {
   role: "student";
-  grade?: string;
 }
 
 export type SchoolStaff = SchoolAdmin | SchoolTeacher;
